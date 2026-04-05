@@ -2,6 +2,8 @@ import { games } from "./data.js";
 
 
 const gamesGrid = document.getElementById("games-grid");
+const searchinput = document.getElementById("search-input");
+const categoryButtons = document.querySelectorAll('.cat-btn');
 
 
 function DisplayGames(datagames){
@@ -46,6 +48,38 @@ function DisplayGames(datagames){
         
     });
 }
-DisplayGames(games)
+
+
+function FilterGames(){
+    const searchTerm = searchinput.value.toLowerCase();
+    const activeCategory = document.querySelector('.cat-btn.bg-black').dataset.category;
+
+    const filtered = games.filter(game => {
+        const matchesSearch = game.title.toLowerCase().includes(searchTerm);
+        const matchesCategory = activeCategory === 'All' || game.category === activeCategory;
+        return matchesSearch && matchesCategory;
+    });
+
+    DisplayGames(filtered);
+}
+
+searchinput.addEventListener('input', FilterGames);
+
+
+categoryButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Changer l-style dyal l-bouton l-active
+        categoryButtons.forEach(b => {
+            b.classList.remove('bg-black', 'text-white');
+            b.classList.add('bg-white', 'text-gray-900');
+        });
+        btn.classList.add('bg-black', 'text-white');
+        btn.classList.remove('bg-white');
+
+        FilterGames();
+    });
+});
+
+DisplayGames(games);
 
 

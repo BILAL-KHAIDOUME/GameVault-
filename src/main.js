@@ -62,6 +62,7 @@ function FilterGames(){
     });
 
     DisplayGames(filtered);
+    
 }
 
 searchinput.addEventListener('input', FilterGames);

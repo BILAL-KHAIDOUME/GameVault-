@@ -50,6 +50,7 @@ function DisplayGames(datagames){
 }
 
 
+
 function FilterGames(){
     const searchTerm = searchinput.value.toLowerCase();
     const activeCategory = document.querySelector('.cat-btn.bg-black').dataset.category;

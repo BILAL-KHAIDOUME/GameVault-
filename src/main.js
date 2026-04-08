@@ -7,13 +7,20 @@ const categoryBtns = document.querySelectorAll('.categoryBtns');
 const bandeau = document.getElementById("promo-banner");
 
 
+  
 
 
-function Bandeau() {
+
+
+
+
+
+
+
 setTimeout(() => {
     bandeau 
 },3000);
-}
+
 
 
 function AfficherGames(datagames){
@@ -64,6 +71,7 @@ function AfficherGames(datagames){
 
 
 function FilterGames(){
+
     const searchCond = searchinput.value.toLowerCase();
     const activeCategory = document.querySelector('.categoryBtns.bg-black').dataset.category;
 

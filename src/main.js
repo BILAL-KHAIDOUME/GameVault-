@@ -4,6 +4,16 @@ import { games } from "./data.js";
 const gamesCont = document.getElementById("gamesCont");
 const searchinput = document.getElementById("input");
 const categoryBtns = document.querySelectorAll('.categoryBtns');
+const bandeau = document.getElementById("promo-banner");
+
+
+
+
+function Bandeau() {
+setTimeout(() => {
+    bandeau 
+},3000);
+}
 
 
 function AfficherGames(datagames){
@@ -45,6 +55,7 @@ function AfficherGames(datagames){
                 </div>
         
         `;
+
         gamesCont.innerHTML += gameCard;
         
     });

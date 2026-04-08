@@ -4,6 +4,23 @@ import { games } from "./data.js";
 const gamesCont = document.getElementById("gamesCont");
 const searchinput = document.getElementById("input");
 const categoryBtns = document.querySelectorAll('.categoryBtns');
+const bandeau = document.getElementById("promo-banner");
+
+
+  
+
+
+
+
+
+
+
+
+
+setTimeout(() => {
+    bandeau 
+},3000);
+
 
 
 function AfficherGames(datagames){
@@ -45,6 +62,7 @@ function AfficherGames(datagames){
                 </div>
         
         `;
+
         gamesCont.innerHTML += gameCard;
         
     });
@@ -53,6 +71,7 @@ function AfficherGames(datagames){
 
 
 function FilterGames(){
+
     const searchCond = searchinput.value.toLowerCase();
     const activeCategory = document.querySelector('.categoryBtns.bg-black').dataset.category;
 

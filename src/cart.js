@@ -1,18 +1,14 @@
-// js/cart.js
-
-// 1. Récupérer les éléments du DOM
 const cartItemsContainer = document.getElementById('cart-items');
 const cartTotalElement = document.getElementById('cart-total');
 const cartCountBadge = document.getElementById('cart-count');
 const orderSummary = document.getElementById('order-summary');
 const checkoutBtn = document.getElementById('checkout-btn');
 
-// 2. Initialiser le panier depuis localStorage
 let cart = JSON.parse(localStorage.getItem('gamevault_cart')) || [];
 
-// 3. Fonction principale pour afficher le panier
+
 function updateCartUI() {
-    if (!cartItemsContainer) return; // Sécurité
+    if (!cartItemsContainer) return; 
 
     cartItemsContainer.innerHTML = '';
     if (orderSummary) orderSummary.innerHTML = '';
@@ -36,7 +32,6 @@ function updateCartUI() {
         total += item.price * item.quantity;
         count += item.quantity;
 
-        // Render Card Article
         const itemHTML = `
             <div class="bg-white p-5 rounded-[2.5rem] border border-gray-100 flex items-center gap-6 shadow-sm hover:shadow-md transition-all">
                 <img src="${item.image}" alt="${item.title}" class="w-24 h-24 object-cover rounded-[1.5rem]">
@@ -65,7 +60,6 @@ function updateCartUI() {
         `;
         cartItemsContainer.innerHTML += itemHTML;
 
-        // Render Summary Details
         if (orderSummary) {
             orderSummary.innerHTML += `<div class="flex justify-between text-gray-600">
                 <span>${item.title} x${item.quantity}</span>
@@ -78,7 +72,6 @@ function updateCartUI() {
     if (cartCountBadge) cartCountBadge.textContent = count;
 }
 
-// 4. Gestion des clics (Quantity & Delete)
 if (cartItemsContainer) {
     cartItemsContainer.addEventListener('click', (e) => {
         const btn = e.target.closest('button');
@@ -102,7 +95,6 @@ if (cartItemsContainer) {
     });
 }
 
-// 5. Commander (US9)
 if (checkoutBtn) {
     checkoutBtn.addEventListener('click', () => {
         if (cart.length === 0) return;
@@ -113,5 +105,4 @@ if (checkoutBtn) {
     });
 }
 
-// Initialisation
 document.addEventListener('DOMContentLoaded', updateCartUI);

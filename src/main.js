@@ -1,13 +1,14 @@
 import { games } from "./data.js";
 
 
-const gamesGrid = document.getElementById("games-grid");
-const searchinput = document.getElementById("search-input");
-const categoryButtons = document.querySelectorAll('.cat-btn');
+const gamesCont = document.getElementById("gamesCont");
+const searchinput = document.getElementById("input");
+const categoryBtns = document.querySelectorAll('.categoryBtns');
 
 
-function DisplayGames(datagames){
-    gamesGrid.innerHTML = '';
+function AfficherGames(datagames){
+
+    gamesCont.innerHTML = '';
 
     datagames.forEach(game => {
         const gameCard = `
@@ -44,7 +45,7 @@ function DisplayGames(datagames){
                 </div>
         
         `;
-        gamesGrid.innerHTML += gameCard;
+        gamesCont.innerHTML += gameCard;
         
     });
 }
@@ -52,26 +53,25 @@ function DisplayGames(datagames){
 
 
 function FilterGames(){
-    const searchTerm = searchinput.value.toLowerCase();
-    const activeCategory = document.querySelector('.cat-btn.bg-black').dataset.category;
+    const searchCond = searchinput.value.toLowerCase();
+    const activeCategory = document.querySelector('.categoryBtns.bg-black').dataset.category;
 
-    const filtered = games.filter(game => {
-        const matchesSearch = game.title.toLowerCase().includes(searchTerm);
-        const matchesCategory = activeCategory === 'All' || game.category === activeCategory;
-        return matchesSearch && matchesCategory;
+    const filteredgames = games.filter(game => {
+        const searchmatch = game.title.toLowerCase().includes(searchCond);
+        const categorymatch = activeCategory === 'All' || game.category === activeCategory;
+        return searchmatch && categorymatch;
     });
 
-    DisplayGames(filtered);
+    AfficherGames(filteredgames);
 
 }
 
 searchinput.addEventListener('input', FilterGames);
 
 
-categoryButtons.forEach(btn => {
+categoryBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-        // Changer l-style dyal l-bouton l-active
-        categoryButtons.forEach(b => {
+        categoryBtns.forEach(b => {
             b.classList.remove('bg-black', 'text-white');
             b.classList.add('bg-white', 'text-gray-900');
         });
@@ -82,7 +82,7 @@ categoryButtons.forEach(btn => {
     });
 });
 
-DisplayGames(games);
+AfficherGames(games);
 
 
 let cart = JSON.parse(localStorage.getItem('gamevault_cart')) || [];
@@ -97,7 +97,6 @@ function updateCartBadge() {
 function addToCart(gameId) {
     const gameToAdd = games.find(g => g.id === gameId);
     
-    // Check wach l-jeu deja kayn f l-panier
     const existingItem = cart.find(item => item.id === gameId);
 
     if (existingItem) {
@@ -106,15 +105,13 @@ function addToCart(gameId) {
         cart.push({ ...gameToAdd, quantity: 1 });
     }
 
-    // Sauvegarder o Update UI
     localStorage.setItem('gamevault_cart', JSON.stringify(cart));
     updateCartBadge();
     
-    // Alert simple (Optional: tqder t-gadha b Toast mn b3d)
     alert(`${gameToAdd.title} ajouté au panier !`);
 }
 
-gamesGrid.addEventListener('click', (e) => {
+gamesCont.addEventListener('click', (e) => {
     const btn = e.target.closest('.add-to-cart');
     if (btn) {
         const id = parseInt(btn.dataset.id);
